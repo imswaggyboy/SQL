@@ -45,3 +45,29 @@ GROUP BY u.city
 ORDER BY total_trades DESC
 LIMIT 3;
 -----------------------------------------------------------------------------
+-- Q6.Duplicate Job Listings
+
+----this i tried i'm still lack in knowledge about sql
+-- SELECT 
+-- SUM(CASE WHEN count(description) >1 THEN 1 ELSE 0 END) as duplicate_companies
+-- FROM job_listings
+-- GROUP BY description,title,company_id
+-- HAVING COUNT(description) > 1
+
+
+--new concept learned
+WITH job_listings_rank 
+AS (
+  SELECT
+    ROW_NUMBER() OVER (
+      PARTITION BY company_id, title, description 
+    ) AS ranking, 
+    company_id, 
+    title, 
+    description 
+  FROM job_listings
+)
+
+SELECT COUNT(ranking) AS duplicate_companies
+FROM job_listings_rank
+WHERE ranking = 2;
