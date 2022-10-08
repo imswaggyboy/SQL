@@ -12,3 +12,7 @@ LEFT JOIN page_likes pl
 on p.page_id = pl.page_id
 where pl.liked_date is NULL
 order by page_id ASC;
+
+--Q3.Unfinished Parts
+SELECT DISTINCT(part) FROM parts_assembly
+where finish_date is NULL;
