@@ -22,3 +22,14 @@ SELECT
 sum(CASE when device_type = 'laptop' THEN 1 ELSE 0 END) as laptop_views ,
 sum(CASE when device_type IN ('tablet','phone') THEN 1 ELSE 0 END) as mobile_views
 FROM viewership;
+
+--Q5.Cities With Completed Trades
+--applied previously learned concept
+SELECT u.city, 
+sum(CASE WHEN t.status = 'Completed' then 1 else 0 END) as total_trades
+FROM users u
+join trades t
+on u.user_id = t.user_id
+GROUP BY u.city
+ORDER BY total_trades DESC
+LIMIT 3;
