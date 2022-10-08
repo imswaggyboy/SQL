@@ -16,3 +16,9 @@ order by page_id ASC;
 --Q3.Unfinished Parts
 SELECT DISTINCT(part) FROM parts_assembly
 where finish_date is NULL;
+
+--Q4.Laptop vs Mobile Viewership
+SELECT 
+sum(CASE when device_type = 'laptop' THEN 1 ELSE 0 END) as laptop_views ,
+sum(CASE when device_type IN ('tablet','phone') THEN 1 ELSE 0 END) as mobile_views
+FROM viewership;
