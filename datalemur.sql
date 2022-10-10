@@ -71,3 +71,12 @@ AS (
 SELECT COUNT(ranking) AS duplicate_companies
 FROM job_listings_rank
 WHERE ranking = 2;
+-------------------------------------------------------------------------------
+Q7. Final Account Balance
+this question has solved without any hectic , hint . im so glad!!!!!!
+
+SELECT account_id,
+sum((CASE WHEN transaction_type = 'Withdrawal' THEN -amount ELSE +amount END)) as final_balance
+FROM transactions
+GROUP BY account_id;
+------------------------------------------------------------------------------
