@@ -79,4 +79,14 @@ SELECT account_id,
 sum((CASE WHEN transaction_type = 'Withdrawal' THEN -amount ELSE +amount END)) as final_balance
 FROM transactions
 GROUP BY account_id;
-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+Q8. Histogram of Tweets
+SELECT
+tweet_num as tweet_bucket,
+COUNT(user_id) as users_num
+FROM(
+SELECT user_id,COUNT(user_id) as tweet_num
+FROM tweets
+WHERE tweet_date BETWEEN '2022/01/01/' AND '2022/12/31'
+GROUP BY user_id) as Total_tweets
+GROUP BY tweet_bucket;
