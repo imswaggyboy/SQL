@@ -183,4 +183,13 @@ We can fix this by converting the resulting ROAS to a decimal type before roundi
 
 To put it all together, first use the double-colon :: conversion and then round the results.
 ----------------------------------------------------------------------
-
+Q17.Apple Pay Volume
+SELECT merchant_id , SUM(trans_amount)
+FROM
+(SELECT merchant_id,
+CASE 
+WHEN lower(payment_method) = 'apple pay' THEN transaction_amount
+ELSE 0 END  as trans_amount
+FROM transactions) a
+GROUP BY merchant_id
+ORDER BY SUM(trans_amount) DESC;
