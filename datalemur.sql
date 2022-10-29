@@ -116,3 +116,12 @@ GROUP BY user_id
 HAVING SUM(spend) >= 1000
 ORDER BY product_num DESC, sum(spend) DESC
 LIMIT 3;
+---------------------------------------------------------------------------------
+Q12.Spare Server Capacity
+SELECT dc.datacenter_id,
+(dc.monthly_capacity)- sum(fd.monthly_demand) as spare_capacity
+FROM datacenters dc
+JOIN forecasted_demand fd
+on fd.datacenter_id = dc.datacenter_id
+GROUP BY dc.datacenter_id ,dc.monthly_capacity
+ORDER BY dc.datacenter_id asc ;
