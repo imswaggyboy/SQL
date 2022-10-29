@@ -108,3 +108,11 @@ JOIN company_pages cp
 on pp.employer_id = cp.company_id
 where pp.followers > cp.followers
 ORDER BY pp.profile_id;
+--------------------------------------------------------------------------------
+Q11. Highest Number of Products
+SELECT user_id,COUNT(product_id) as product_num
+FROM user_transactions
+GROUP BY user_id
+HAVING SUM(spend) >= 1000
+ORDER BY product_num DESC, sum(spend) DESC
+LIMIT 3;
