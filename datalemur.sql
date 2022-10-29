@@ -125,3 +125,12 @@ JOIN forecasted_demand fd
 on fd.datacenter_id = dc.datacenter_id
 GROUP BY dc.datacenter_id ,dc.monthly_capacity
 ORDER BY dc.datacenter_id asc ;
+---------------------------------------------------------------------------------
+Q13. Average Post Hiatus (Part 1)
+select user_id, EXTRACT(day from diff) as days_between
+from 
+(SELECT user_id,  max(post_date)-min(post_date) as diff
+FROM posts
+WHERE post_date BETWEEN '01/01/2021' AND '12/31/2021'
+GROUP BY user_id) as a
+WHERE EXTRACT(day from diff)> 0 ;
