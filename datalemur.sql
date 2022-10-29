@@ -193,3 +193,12 @@ ELSE 0 END  as trans_amount
 FROM transactions) a
 GROUP BY merchant_id
 ORDER BY SUM(trans_amount) DESC;
+--sometimes i just have to use my brain instead of worked with the flow 
+SELECT merchant_id,
+SUM(CASE 
+WHEN lower(payment_method) = 'apple pay' THEN transaction_amount
+ELSE 0 END)  as trans_amount
+FROM transactions
+GROUP BY merchant_id
+ORDER BY trans_amount DESC;
+
