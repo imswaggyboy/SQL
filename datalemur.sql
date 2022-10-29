@@ -169,3 +169,18 @@ SELECT COUNT(business_id) as business_count,
 FROM reviews
 where review_stars >= 4;
 
+-------------------------------------------------------------------
+Q16.Ad Campaign ROAS
+
+SELECT advertiser_id ,ROUND((SUM(revenue)/SUM(spend))::decimal,2) 
+FROM ad_campaigns
+GROUP BY advertiser_id
+ORDER BY advertiser_id;
+--how to use round() fun in postgreSQL --
+PostgreSQL requires the ROUND function input to be numeric, while our calculated ROAS is type double. You can read more about different numeric types in the PostgreSQL documentation here.
+
+We can fix this by converting the resulting ROAS to a decimal type before rounding. We can accomplish this using the double-colon :: conversion with the following syntax: ROUND(result::DECIMAL, num_places)
+
+To put it all together, first use the double-colon :: conversion and then round the results.
+----------------------------------------------------------------------
+
