@@ -134,3 +134,9 @@ FROM posts
 WHERE post_date BETWEEN '01/01/2021' AND '12/31/2021'
 GROUP BY user_id) as a
 WHERE EXTRACT(day from diff)> 0 ;
+
+--someone's approach 
+SELECT user_id ,extract (day from (max(post_date)-min(post_date)))  
+as days_between
+FROM posts where extract (year from post_date)=2021 group by user_id
+having extract (day from (max(post_date)-min(post_date))) != 0 ;
