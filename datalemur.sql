@@ -140,3 +140,22 @@ SELECT user_id ,extract (day from (max(post_date)-min(post_date)))
 as days_between
 FROM posts where extract (year from post_date)=2021 group by user_id
 having extract (day from (max(post_date)-min(post_date))) != 0 ;
+
+----------------------------------------------------------------------------------
+Q14.Teams Power Users
+
+SELECT sender_id , COUNT(message_id) as message_count
+FROM messages
+WHERE sent_date BETWEEN '08/01/2022' AND '08/21/2022'
+GROUP BY sender_id
+ORDER BY message_count DESC
+LIMIT 2;
+
+--i can use  EXTRACT() ini where --
+SELECT sender_id , COUNT(message_id) as message_count
+FROM messages
+WHERE EXTRACT(month from sent_date) = '8'
+AND EXTRACT(year from sent_date) = '2022'
+GROUP BY sender_id
+ORDER BY message_count DESC
+LIMIT 2;
