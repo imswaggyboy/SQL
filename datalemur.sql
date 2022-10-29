@@ -159,3 +159,13 @@ AND EXTRACT(year from sent_date) = '2022'
 GROUP BY sender_id
 ORDER BY message_count DESC
 LIMIT 2;
+
+------------------------------------------------------------------
+Q15.Top Rated Businesses
+
+SELECT COUNT(business_id) as business_count,
+100*COUNT(review_stars)/
+(SELECT COUNT(business_id) FROM reviews) as top_rated_pct
+FROM reviews
+where review_stars >= 4;
+
