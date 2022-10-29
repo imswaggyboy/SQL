@@ -99,3 +99,12 @@ ROUND(AVG(stars),2) AS avg_stars
 FROM reviews
 GROUP BY product_id,mth
 ORDER BY mth,product;
+
+--------------------------------------------------------------------------------
+Q10. LinkedIn Power Creators (Part 1)
+SELECT pp.profile_id
+FROM personal_profiles pp
+JOIN company_pages cp
+on pp.employer_id = cp.company_id
+where pp.followers > cp.followers
+ORDER BY pp.profile_id;
