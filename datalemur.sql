@@ -90,3 +90,12 @@ FROM tweets
 WHERE tweet_date BETWEEN '2022/01/01/' AND '2022/12/31'
 GROUP BY user_id) as Total_tweets
 GROUP BY tweet_bucket;
+--------------------------------------------------------------------------------
+
+Q9. Average Review Ratings
+SELECT EXTRACT(MONTH FROM submit_date) as mth,
+product_id as product ,
+ROUND(AVG(stars),2) AS avg_stars
+FROM reviews
+GROUP BY product_id,mth
+ORDER BY mth,product;
