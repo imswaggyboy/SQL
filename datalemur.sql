@@ -224,3 +224,10 @@ FROM emails e
 join texts t
 on e.email_id = t.email_id) a
 WHERE EXTRACT(day FROM confirm_other_day)  = 1;
+
+--another solution without using subquery 
+select e.user_id
+from emails e JOIN texts t
+on e.email_id = t.email_id
+where t.signup_action = 'Confirmed'
+AND t.action_date - e.signup_date = interval '1' day;
