@@ -231,3 +231,18 @@ from emails e JOIN texts t
 on e.email_id = t.email_id
 where t.signup_action = 'Confirmed'
 AND t.action_date - e.signup_date = interval '1' day;
+
+=----------------------------------------------------------------------------------
+Q20. Users Third Transaction
+SELECT user_id , spend , transaction_date
+FROM
+(SELECT 
+user_id, spend , transaction_date,
+RANK() OVER(
+    PARTITION BY user_id
+    ORDER BY  transaction_date
+) as user_trans_rank
+FROM transactions) a
+WHERE user_trans_rank  = 3;
+
+
