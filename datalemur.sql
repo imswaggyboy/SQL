@@ -216,3 +216,11 @@ FROM events
 WHERE EXTRACT(year from timestamp)=2022
 GROUP BY app_id;
 ---------------------------------------------------------------------------------
+Q19.Second Day Confirmation
+SELECT user_id
+FROM
+(SELECT e.user_id ,e.email_id,  t.signup_action , t.action_date- e.signup_date as confirm_other_day
+FROM emails e
+join texts t
+on e.email_id = t.email_id) a
+WHERE EXTRACT(day FROM confirm_other_day)  = 1;
