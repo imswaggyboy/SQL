@@ -233,6 +233,7 @@ where t.signup_action = 'Confirmed'
 AND t.action_date - e.signup_date = interval '1' day;
 
 =----------------------------------------------------------------------------------
+-------------------------MEDIUM QUESTION SOLUTION----------------------------------
 Q20. Users Third Transaction
 SELECT user_id , spend , transaction_date
 FROM
