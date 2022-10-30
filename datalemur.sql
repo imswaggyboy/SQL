@@ -201,4 +201,18 @@ ELSE 0 END)  as trans_amount
 FROM transactions
 GROUP BY merchant_id
 ORDER BY trans_amount DESC;
+-------------------------------------------------------------------------------
+Q18.App Click-through Rate (CTR)
 
+Notes:
+To avoid integer division, you should multiply the click-through rate by 100.0, not 100.
+Percentage of click-through rate = 100.0 * Number of clicks / Number of impressions
+
+-- SELECT * FROM events;
+SELECT app_id,
+ROUND(100.0*SUM(CASE WHEN event_type = 'click' THEN 1 ELSE 0 END)/
+SUM(CASE WHEN event_type = 'impression' THEN 1 ELSE 0 END),2) as ctr
+FROM events
+WHERE EXTRACT(year from timestamp)=2022
+GROUP BY app_id;
+---------------------------------------------------------------------------------
