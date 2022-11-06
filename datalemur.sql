@@ -246,4 +246,33 @@ RANK() OVER(
 FROM transactions) a
 WHERE user_trans_rank  = 3;
 
+------------------------------------------------------------------------
+Q21.Compensation Outliers
+-- my solution using multiple sub query
+SELECT * from (select employee_id,salary,
+case WHEN salary  > 2*avg_salary then 'Overpaid'
+when salary < avg_salary/2 then 'Underpaid'
+ELSE 'Normal' END status
+FROM
+(SELECT e.*,
+AVG(salary) OVER(PARTITION BY title) as avg_salary
+from employee_pay e) x
+GROUP BY employee_id,avg_salary,salary) m
+where status not in ('Normal')
+ORDER BY employee_id;
+
+
+-- another solution using with clause 
+-- with payout as  (SELECT e.*,
+-- AVG(salary) OVER(PARTITION BY title)*2 as double_avg_salary,
+-- avg(salary) over(partition by title)/2 as half_avg_salary
+-- from employee_pay e) 
+-- select employee_id, salary ,
+-- case when salary > double_avg_salary then 'Overpaid'
+-- when salary < half_avg_salary then 'Underpaid' end x
+-- from payout
+-- where salary > double_avg_salary or salary < half_avg_salary;
+
+--------------------------------------------------------------------------
+
 
